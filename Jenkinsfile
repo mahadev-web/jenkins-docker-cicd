@@ -16,12 +16,12 @@ pipeline {
 
         failure {
             withCredentials([string(credentialsId: 'slack-webhook', variable: 'SLACK_WEBHOOK')]) {
-                sh '''
+                sh """
                 curl -X POST \
-                -H "Content-type: application/json" \
-                --data "{\"text\":\"🚨 Jenkins Build FAILED: ${JOB_NAME} #${BUILD_NUMBER}\"}" \
-                $SLACK_WEBHOOK
-                '''
+                -H 'Content-type: application/json' \
+                --data '{"text":"🚨 Jenkins Build FAILED: ${JOB_NAME} #${BUILD_NUMBER}"}' \
+                "$SLACK_WEBHOOK"
+                """
             }
         }
     }
