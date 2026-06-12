@@ -17,7 +17,12 @@ pipeline {
         }
 
         failure {
-            echo 'Build failed'
+            sh '''
+            curl -X POST \
+            -H "Content-type: application/json" \
+            --data '{"text":"🚨 Jenkins Build FAILED: ${JOB_NAME} #${BUILD_NUMBER}"}' \
+            "YOUR_SLACK_WEBHOOK_URL"
+            '''
         }
     }
 }
